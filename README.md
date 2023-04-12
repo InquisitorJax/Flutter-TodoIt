@@ -22,3 +22,6 @@ CODE WITH ANDREA: Tutorials on Dart, Flutter and Firebase - [link](https://codew
 #### Dart Libs
 - dio: Http Client supporting Interceptors, Global configuration, FormData, Request Cancellation, File downloading, Timeout, etc.
 - mockito: A mock framework inspired by Mockito with APIs for Fakes, Mocks, behavior verification, and stubbing.
+
+#### Flutter Libs
+- flutter_animate - [video](https://www.youtube.com/watch?v=JSqUZFkRLr8)

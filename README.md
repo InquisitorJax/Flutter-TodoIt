@@ -10,6 +10,9 @@ Setup with VS Code: https://docs.flutter.dev/development/tools/vs-code
 
 ### Flutter Links
 
+#### Learning
+CODE WITH ANDREA: Tutorials on Dart, Flutter and Firebase - [link](https://codewithandrea.com/)
+
 #### State Management
 - Riverpod
 - Bloc

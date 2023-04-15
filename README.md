@@ -12,6 +12,8 @@ Setup with VS Code: https://docs.flutter.dev/development/tools/vs-code
 
 #### Learning
 
+Flutter Learning Page - [link](https://flutter.dev/learn)
+
 Fluttter Dev youtube channel - [link](https://www.youtube.com/@flutterdev)
 
 CODE WITH ANDREA: Tutorials on Dart, Flutter and Firebase - [link](https://codewithandrea.com/)

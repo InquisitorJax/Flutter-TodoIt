@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoit/src/domain/todo.dart';
+import 'package:todoit/src/features/settings/settings_page.dart';
+import 'package:todoit/src/widgets/todo_card.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -41,10 +44,10 @@ class _HomePageState extends State<HomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = const GeneratorPage();
+        page = const TodoListPage();
         break;
       case 1:
-        page = const FavoritesPage();
+        page = const SettingsPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -57,14 +60,14 @@ class _HomePageState extends State<HomePage> {
             SafeArea(
               child: NavigationRail(
                 extended: constraints.maxWidth >= 600,
-                destinations: [
-                  const NavigationRailDestination(
+                destinations: const [
+                   NavigationRailDestination(
                     icon: Icon(Icons.home),
                     label: Text('Home'),
                   ),
-                  const NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
+                   NavigationRailDestination(
+                    icon: Icon(Icons.settings),
+                    label: Text('Settings'),
                   ),
                 ],
                 selectedIndex: selectedIndex,
@@ -88,74 +91,16 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class GeneratorPage extends StatelessWidget {
-  const GeneratorPage({super.key});
+class TodoListPage extends StatelessWidget {
+  const TodoListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        WordCard(pair: pair),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton.icon(
-              onPressed: () {
-                appState.toggleFavorite();
-              },
-              icon: Icon(icon),
-              label: Text('Like'),
-            ),
-            const SizedBox(width: 16),
-            ElevatedButton(
-              onPressed: () {
-                appState.getNext();
-              },
-              child: const Text('Next'),
-            ),
-          ],
-        ),
+        TodoCard(model: TodoItem("Malcolm"),),
       ],
-    );
-  }
-}
-
-class WordCard extends StatelessWidget {
-  const WordCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-    return Card(
-      margin: const EdgeInsets.all(16),
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(48, 24, 48, 24),
-        child: Text(
-          pair.asPascalCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
-        ),
-      ),
     );
   }
 }

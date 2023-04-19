@@ -20,6 +20,7 @@ class ServiceRegistry {
 
     return ServiceRegistry(providers: [
       Provider<Logger>.value(value: log),
+      // should TodoService be ChangeNotifierProvider??
       Provider<TodoService>.value(value: todoService),
     ]);
   }

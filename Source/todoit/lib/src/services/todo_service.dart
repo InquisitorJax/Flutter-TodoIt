@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:todoit/src/domain/todo.dart';
 import 'package:todoit/src/repositories/todo_cloud_repo.dart';
 

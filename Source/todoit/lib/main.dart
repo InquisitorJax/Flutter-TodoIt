@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoit/src/domain/todo.dart';
+import 'package:todoit/service_registry.dart';
 import 'package:todoit/src/features/settings/settings_page.dart';
-import 'package:todoit/src/widgets/todo_card.dart';
+import 'package:todoit/src/services/todo_service.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  final serviceRegistry = ServiceRegistry.registerServices();
+  runApp(MyApp(
+    serviceRegistry: serviceRegistry,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ServiceRegistry serviceRegistry;
+  const MyApp({super.key, required this.serviceRegistry});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
+    return MultiProvider(
+      providers: serviceRegistry.providers,
       child: MaterialApp(
         title: 'TodoIt App',
         theme: ThemeData(
@@ -26,8 +30,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class MyAppState extends ChangeNotifier {}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -140,6 +142,8 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
+    final todoService = Provider.of<TodoService>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("TodoIt App"),

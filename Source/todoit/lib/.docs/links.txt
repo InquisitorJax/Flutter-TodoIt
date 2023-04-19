@@ -2,3 +2,13 @@ Firebase App Series
 https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC
 Firebase UI for Auth
 https://www.youtube.com/watch?v=jtFaMv2vGF0
+
+Current:
+Animated list
+https://www.youtube.com/watch?v=eEt6JrMuPZw
+moer: https://www.kindacode.com/article/flutter-animatedlist-tutorial-and-examples/
+Clean Architecture:
+https://www.youtube.com/watch?v=eEt6JrMuPZw
+code: https://github.com/svprdga/Flutter-Movies-App
+
+finished registering dependencies using MultiProvider (21min)

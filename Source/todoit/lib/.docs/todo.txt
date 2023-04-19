@@ -1,3 +1,3 @@
 - add offline font as an asset
 - switch out cupertino / material based on OS
-  Use material 3 for Windows and Web
+  Use material 3 for Windows (or fluent?) and Web

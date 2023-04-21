@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoit/service_registry.dart';
-import 'package:todoit/src/features/settings/settings_page.dart';
-import 'package:todoit/src/services/todo_service.dart';
+import 'package:todoit/features/settings/settings_page.dart';
+
+import 'features/main/todo_list_page.dart';
 
 void main() async {
   final serviceRegistry = ServiceRegistry.registerServices();
@@ -127,31 +128,6 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
-      ),
-    );
-  }
-}
-
-class TodoListPage extends StatefulWidget {
-  const TodoListPage({super.key});
-
-  @override
-  State<TodoListPage> createState() => _TodoListPageState();
-}
-
-class _TodoListPageState extends State<TodoListPage> {
-  @override
-  Widget build(BuildContext context) {
-    final todoService = Provider.of<TodoService>(context, listen: false);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("TodoIt App"),
-        centerTitle: true,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {},
       ),
     );
   }

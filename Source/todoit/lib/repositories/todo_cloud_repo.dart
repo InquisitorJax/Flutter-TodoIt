@@ -11,8 +11,18 @@ class TodoItemRepository {
     log.w("Fetching Todo Items in Repo");
     return <TodoItem>[
       TodoItem("Malcolm"),
-      TodoItem("Adrian"),
-      TodoItem("Jack")
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
+      TodoItem("Jack"),
     ];
   }
 }

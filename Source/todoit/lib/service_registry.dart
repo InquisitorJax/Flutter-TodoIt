@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:todoit/src/repositories/todo_cloud_repo.dart';
-import 'package:todoit/src/services/todo_service.dart';
+import 'package:todoit/repositories/todo_cloud_repo.dart';
+import 'package:todoit/services/todo_service.dart';
 
 class ServiceRegistry {
   final List<SingleChildWidget> providers;

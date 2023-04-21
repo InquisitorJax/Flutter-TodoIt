@@ -5,8 +5,8 @@ https://www.youtube.com/watch?v=jtFaMv2vGF0
 
 Current:
 Animated list
-https://www.youtube.com/watch?v=eEt6JrMuPZw
-moer: https://www.kindacode.com/article/flutter-animatedlist-tutorial-and-examples/
+https://www.youtube.com/watch?v=E3SQOqUq8Mg&t=77s
+more: https://www.kindacode.com/article/flutter-animatedlist-tutorial-and-examples/
 Clean Architecture:
 https://www.youtube.com/watch?v=eEt6JrMuPZw
 code: https://github.com/svprdga/Flutter-Movies-App

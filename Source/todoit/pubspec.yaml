@@ -1,5 +1,5 @@
 name: todoit
-description: A new Flutter project.
+description: Learning flutter by doing.
 publish_to: 'none'
 version: 0.1.0
 
@@ -20,3 +20,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+# https://docs.flutter.dev/cookbook/design/fonts
+fonts:
+  - family: OpenSans
+    fonts:
+    - asset: assets/fonts/OpenSans-Regular.ttf
+      weight: 400
+    - asset: assets/fonts/OpenSans-Bold.ttf
+      weight: 700
+    - asset: assets/fonts/OpenSans-Light.ttf
+      weight: 300

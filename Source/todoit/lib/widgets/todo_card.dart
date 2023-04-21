@@ -24,6 +24,7 @@ class TodoCard extends StatelessWidget {
       color: theme.colorScheme.onBackground,
     );
     return GestureDetector(
+        onTap: onClicked,
         child: Card(
           margin: const EdgeInsets.all(8),
           color: theme.cardColor,
@@ -38,6 +39,7 @@ class TodoCard extends StatelessWidget {
                     setIsComplete(value);
                   },
                 ),
+                const SizedBox(width: 8),
                 Text(
                   model.name,
                   style: style,
@@ -46,7 +48,6 @@ class TodoCard extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        onTap: () => onClicked);
+        ));
   }
 }

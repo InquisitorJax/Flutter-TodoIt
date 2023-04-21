@@ -35,18 +35,20 @@ class _TodoListPageState extends State<TodoListPage> {
             itemBuilder: (context, index, animation) => TodoCard(
               model: listItems[index],
               animation: animation,
-              onClicked: () => {log.w("Tapped on index $index")},
+              onClicked: () => {
+                log.w("Tapped on index $index"),
+              },
             ),
           )),
-          Align(
+          const Align(
             // should be horizontal stack
             alignment: Alignment.bottomLeft,
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 80, 0),
-              child: Container(
+              child: SizedBox(
                 height: 80,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: TextField(),
                 ),
               ),

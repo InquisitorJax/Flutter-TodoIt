@@ -20,6 +20,11 @@ CODE WITH ANDREA: Tutorials on Dart, Flutter and Firebase - [link](https://codew
 
 Build your first flutter app - [link](https://www.youtube.com/watch?v=8sAyPDLorek)
 
+Clean Architecture
+
+Todo App
+
+Custom Fonts - [link](https://www.youtube.com/watch?v=fDRtpjHfOuw)
 
 #### State Management
 - Riverpod

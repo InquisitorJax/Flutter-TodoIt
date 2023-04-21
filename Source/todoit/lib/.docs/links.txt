@@ -4,6 +4,7 @@ Firebase UI for Auth
 https://www.youtube.com/watch?v=jtFaMv2vGF0
 
 Current:
+todo app: https://www.youtube.com/watch?v=K4P5DZ9TRns
 Animated list
 https://www.youtube.com/watch?v=E3SQOqUq8Mg&t=77s
 more: https://www.kindacode.com/article/flutter-animatedlist-tutorial-and-examples/

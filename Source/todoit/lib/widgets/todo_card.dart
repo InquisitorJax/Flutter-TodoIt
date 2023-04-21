@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoit/domain/todo.dart';
 
-class TodoCard extends StatelessWidget {
+class TodoCard extends StatefulWidget {
   const TodoCard({
     required this.model,
     required this.animation,
@@ -13,18 +13,27 @@ class TodoCard extends StatelessWidget {
   final Animation<double> animation;
   final VoidCallback? onClicked;
 
-  void setIsComplete(bool? value) {
-    model.isComplete = value!;
+  @override
+  State<TodoCard> createState() => _TodoCardState();
+}
+
+class _TodoCardState extends State<TodoCard> {
+  void updateState(bool? value) {
+    setState(() {
+      widget.model.isComplete = value!;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     final style = theme.textTheme.bodyLarge!.copyWith(
-      color: theme.colorScheme.onBackground,
-    );
+        color: theme.colorScheme.onBackground,
+        decoration: widget.model.isComplete
+            ? TextDecoration.lineThrough
+            : TextDecoration.none);
     return GestureDetector(
-        onTap: onClicked,
+        onTap: widget.onClicked,
         child: Card(
           margin: const EdgeInsets.all(8),
           color: theme.cardColor,
@@ -33,17 +42,18 @@ class TodoCard extends StatelessWidget {
             child: Row(
               children: [
                 Checkbox(
-                  value: model.isComplete,
-                  shape: const CircleBorder(),
+                  value: widget.model.isComplete,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.0)),
                   onChanged: (bool? value) {
-                    setIsComplete(value);
+                    updateState(value);
                   },
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  model.name,
+                  widget.model.name,
                   style: style,
-                  semanticsLabel: "todo name: ${model.name}",
+                  semanticsLabel: "todo name: ${widget.model.name}",
                 ),
               ],
             ),

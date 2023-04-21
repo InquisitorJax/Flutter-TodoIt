@@ -1,4 +1,5 @@
 class TodoItem {
+  bool isComplete = false;
   late String name;
   DateTime? dueDate;
 

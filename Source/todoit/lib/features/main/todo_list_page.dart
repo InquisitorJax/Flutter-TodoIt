@@ -16,6 +16,7 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     final todoService = Provider.of<TodoService>(context, listen: false);
     final Logger log = Provider.of<Logger>(context, listen: false);
     final listItems = todoService.getTodoItems();
@@ -57,8 +58,10 @@ class _TodoListPageState extends State<TodoListPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor: theme.colorScheme.onPrimary,
         onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }

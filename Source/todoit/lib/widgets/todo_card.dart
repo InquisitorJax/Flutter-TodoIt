@@ -13,22 +13,37 @@ class TodoCard extends StatelessWidget {
   final Animation<double> animation;
   final VoidCallback? onClicked;
 
+  void setIsComplete(bool? value) {
+    model.isComplete = value!;
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     final style = theme.textTheme.bodyLarge!.copyWith(
-      color: theme.colorScheme.onPrimary,
+      color: theme.colorScheme.onBackground,
     );
     return GestureDetector(
         child: Card(
           margin: const EdgeInsets.all(8),
-          color: theme.colorScheme.primary,
+          color: theme.cardColor,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-            child: Text(
-              model.name,
-              style: style,
-              semanticsLabel: "todo name: ${model.name}",
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Checkbox(
+                  value: model.isComplete,
+                  shape: const CircleBorder(),
+                  onChanged: (bool? value) {
+                    setIsComplete(value);
+                  },
+                ),
+                Text(
+                  model.name,
+                  style: style,
+                  semanticsLabel: "todo name: ${model.name}",
+                ),
+              ],
             ),
           ),
         ),

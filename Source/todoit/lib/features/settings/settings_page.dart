@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
-  
+
   @override
   State<SettingsPage> createState() => _SettingsPageState();
 }
@@ -10,9 +10,12 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SizedBox(width: 16),
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: const [SizedBox(height: 16), Text("Settings")],
+        ),
+      ),
     );
   }
-
 }

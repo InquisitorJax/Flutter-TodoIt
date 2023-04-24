@@ -1,5 +1,10 @@
 
-- click on task item to complete
+- re-order list when completed
+  delete and re-add? or move?
+  consider using https://pub.dev/packages/great_list_view
+- add task when tapping plus button
+  validate if no text in the textbox
+- add delete task with animation
 - switch out cupertino / material based on OS
   Use material 3 for Windows (or fluent?) and Web
 

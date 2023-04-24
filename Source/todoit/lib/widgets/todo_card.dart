@@ -5,13 +5,13 @@ class TodoCard extends StatefulWidget {
   const TodoCard({
     required this.model,
     required this.animation,
-    required this.onClicked,
+    required this.onCompleted,
     super.key,
   });
 
   final TodoItem model;
   final Animation<double> animation;
-  final VoidCallback? onClicked;
+  final VoidCallback? onCompleted;
 
   @override
   State<TodoCard> createState() => _TodoCardState();
@@ -33,7 +33,7 @@ class _TodoCardState extends State<TodoCard> {
             ? TextDecoration.lineThrough
             : TextDecoration.none);
     return GestureDetector(
-        onTap: widget.onClicked,
+        onTap: widget.onCompleted,
         child: Card(
           margin: const EdgeInsets.all(8),
           color: theme.cardColor,
@@ -47,6 +47,7 @@ class _TodoCardState extends State<TodoCard> {
                       borderRadius: BorderRadius.circular(4.0)),
                   onChanged: (bool? value) {
                     updateState(value);
+                    widget.onCompleted?.call();
                   },
                 ),
                 const SizedBox(width: 8),

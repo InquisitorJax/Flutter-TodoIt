@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:todoit/domain/todo.dart';
+import 'package:todoit/extensions/list_extensions.dart';
 import 'package:todoit/widgets/todo_card.dart';
 
 import '../../services/todo_service.dart';
 
 class TodoListPage extends StatefulWidget {
-  TodoListPage({super.key});
+  const TodoListPage({super.key});
 
   @override
   State<TodoListPage> createState() => _TodoListPageState();
@@ -97,7 +98,14 @@ class _TodoListPageState extends State<TodoListPage> {
     setState(() {
       // Reorder the list
       TodoItem item = _listItems.removeAt(index);
-      _listItems.insert(0, item);
+      TodoItem? firstCompleted =
+          _listItems.safeFirstWhere((todo) => todo.isComplete);
+      int insertIndex = _listItems.length - 1;
+      if (firstCompleted != null) {
+        insertIndex = _listItems.indexOf(firstCompleted);
+      }
+
+      _listItems.insert(insertIndex, item);
 
       // Update the AnimatedList
       _listKey.currentState?.removeItem(
@@ -106,8 +114,8 @@ class _TodoListPageState extends State<TodoListPage> {
             _buildItem(item, animation, index, _completeItem),
         duration: const Duration(milliseconds: 300),
       );
-      _listKey.currentState
-          ?.insertItem(0, duration: const Duration(milliseconds: 300));
+      _listKey.currentState?.insertItem(insertIndex,
+          duration: const Duration(milliseconds: 300));
     });
   }
 }

@@ -51,7 +51,8 @@ class _TodoListPageState extends State<TodoListPage> {
               list: _listItems,
               comparator: AnimatedListDiffListComparator<TodoItem>(
                   sameItem: (a, b) => a.id == b.id,
-                  sameContent: (a, b) => a.isComplete == b.isComplete),
+                  sameContent: (a, b) =>
+                      a.isComplete == b.isComplete && a.name == b.name),
               itemBuilder: (context, item, data) => _buildItem(
                 item,
                 data.animation,

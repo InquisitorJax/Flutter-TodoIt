@@ -49,6 +49,10 @@ class _TodoListPageState extends State<TodoListPage> {
           Expanded(
             child: AutomaticAnimatedListView<TodoItem>(
               list: _listItems,
+              animator: const DefaultAnimatedListAnimator(
+                dismissIncomingDuration: Duration(milliseconds: 150),
+                resizeDuration: Duration(milliseconds: 200),
+              ),
               comparator: AnimatedListDiffListComparator<TodoItem>(
                   sameItem: (a, b) => a.id == b.id,
                   sameContent: (a, b) =>
@@ -61,6 +65,7 @@ class _TodoListPageState extends State<TodoListPage> {
               ),
               listController: _controller,
               addLongPressReorderable: false,
+              // maybe try enable reorder limited to not completed? https://github.com/DavideBelsole/great_list_view/issues/16
               reorderModel: AutomaticAnimatedListReorderModel(_listItems),
               detectMoves: true,
             ),

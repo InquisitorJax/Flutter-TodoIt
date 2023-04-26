@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:great_list_view/great_list_view.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:todoit/domain/todo.dart';
@@ -15,17 +16,22 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late final Logger _log;
   late final TodoService _todoService;
-  late final List<TodoItem> _listItems;
+  final _controller = AnimatedListController();
+  //great_list_view works be animating diff of 2 lists, hence A & B instance
+  late List<TodoItem> _listItems;
+  late List<TodoItem> _listItemsA;
+  late List<TodoItem> _listItemsB;
 
   @override
   void initState() {
     super.initState();
     _todoService = Provider.of<TodoService>(context, listen: false);
     _log = Provider.of<Logger>(context, listen: false);
-    _listItems = _todoService.getTodoItems();
+    _listItemsA = _todoService.getTodoItems();
+    _listItemsB = List.from(_listItemsA);
+    _listItems = _listItemsA;
   }
 
   @override
@@ -41,16 +47,23 @@ class _TodoListPageState extends State<TodoListPage> {
       body: Column(
         children: [
           Expanded(
-              // try https://pub.dev/packages/flutter_reorderable_grid_view?
-              child: AnimatedList(
-                  key: _listKey,
-                  initialItemCount: _listItems.length,
-                  itemBuilder: (context, index, animation) => _buildItem(
-                        _listItems[index],
-                        animation,
-                        index,
-                        _completeItem,
-                      ))),
+            child: AutomaticAnimatedListView<TodoItem>(
+              list: _listItems,
+              comparator: AnimatedListDiffListComparator<TodoItem>(
+                  sameItem: (a, b) => a.id == b.id,
+                  sameContent: (a, b) => a.isComplete == b.isComplete),
+              itemBuilder: (context, item, data) => _buildItem(
+                item,
+                data.animation,
+                _listItems.indexOf(item),
+                _completeItem,
+              ),
+              listController: _controller,
+              addLongPressReorderable: false,
+              reorderModel: AutomaticAnimatedListReorderModel(_listItems),
+              detectMoves: true,
+            ),
+          ),
           const Align(
             // should be horizontal stack
             alignment: Alignment.bottomLeft,
@@ -83,8 +96,9 @@ class _TodoListPageState extends State<TodoListPage> {
     int index,
     ValueSetter<int> onComplete,
   ) {
-    return SizeTransition(
-      sizeFactor: animation,
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      height: 96,
       child: TodoCard(
         model: item,
         animation: animation,
@@ -97,25 +111,29 @@ class _TodoListPageState extends State<TodoListPage> {
     _log.w("Updating item at index: $index");
     setState(() {
       // Reorder the list
-      TodoItem item = _listItems.removeAt(index);
+      var listToDisplayNext =
+          _listItems == _listItemsA ? _listItemsB : _listItemsA;
+
+      TodoItem item = listToDisplayNext.removeAt(index);
       TodoItem? firstCompleted =
-          _listItems.safeFirstWhere((todo) => todo.isComplete);
-      int insertIndex = _listItems.length - 1;
+          listToDisplayNext.safeFirstWhere((todo) => todo.isComplete);
+      int insertIndex = listToDisplayNext.length;
       if (firstCompleted != null) {
-        insertIndex = _listItems.indexOf(firstCompleted);
+        insertIndex = listToDisplayNext.indexOf(firstCompleted);
       }
+      listToDisplayNext.insert(insertIndex, item);
+      swapList();
+      if (_listItems == _listItemsA) {
+        _listItemsB = List.from(_listItems);
+      } else {
+        _listItemsA = List.from(_listItems);
+      }
+    });
+  }
 
-      _listItems.insert(insertIndex, item);
-
-      // Update the AnimatedList
-      _listKey.currentState?.removeItem(
-        index,
-        (context, animation) =>
-            _buildItem(item, animation, index, _completeItem),
-        duration: const Duration(milliseconds: 300),
-      );
-      _listKey.currentState?.insertItem(insertIndex,
-          duration: const Duration(milliseconds: 300));
+  void swapList() {
+    setState(() {
+      _listItems = _listItems == _listItemsA ? _listItemsB : _listItemsA;
     });
   }
 }

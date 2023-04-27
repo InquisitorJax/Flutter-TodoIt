@@ -21,17 +21,15 @@ class _TodoListPageState extends State<TodoListPage> {
   final _controller = AnimatedListController();
   //great_list_view works by animating diff of 2 lists, hence A & B instance
   late List<TodoItem> _listItems;
-  late List<TodoItem> _listItemsA;
-  late List<TodoItem> _listItemsB;
+  late List<TodoItem> _listItemsBackup;
 
   @override
   void initState() {
     super.initState();
     _todoService = Provider.of<TodoService>(context, listen: false);
     _log = Provider.of<Logger>(context, listen: false);
-    _listItemsA = _todoService.getTodoItems();
-    _listItemsB = List.from(_listItemsA);
-    _listItems = _listItemsA;
+    _listItems = _todoService.getTodoItems();
+    _listItemsBackup = List.from(_listItems);
   }
 
   @override
@@ -115,27 +113,20 @@ class _TodoListPageState extends State<TodoListPage> {
 
     setState(() {
       // Reorder the list
-      var listToDisplayNext =
-          _listItems == _listItemsA ? _listItemsB : _listItemsA;
-
-      TodoItem item = listToDisplayNext.removeAt(index);
+      TodoItem item = _listItemsBackup.removeAt(index);
       TodoItem? firstCompleted =
-          listToDisplayNext.safeFirstWhere((todo) => todo.isComplete);
-      int insertIndex = listToDisplayNext.length;
+          _listItemsBackup.safeFirstWhere((todo) => todo.isComplete);
+      int insertIndex = _listItemsBackup.length;
       if (firstCompleted != null) {
-        insertIndex = listToDisplayNext.indexOf(firstCompleted);
+        insertIndex = _listItemsBackup.indexOf(firstCompleted);
       }
-      listToDisplayNext.insert(insertIndex, item);
+      _listItemsBackup.insert(insertIndex, item);
 
       //swap the list around
-      _listItems = _listItems == _listItemsA ? _listItemsB : _listItemsA;
+      _listItems = _listItemsBackup;
 
       // copy live list into backup
-      if (_listItems == _listItemsA) {
-        _listItemsB = List.from(_listItems);
-      } else {
-        _listItemsA = List.from(_listItems);
-      }
+      _listItemsBackup = List.from(_listItems);
     });
   }
 }

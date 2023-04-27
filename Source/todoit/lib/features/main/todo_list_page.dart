@@ -19,7 +19,7 @@ class _TodoListPageState extends State<TodoListPage> {
   late final Logger _log;
   late final TodoService _todoService;
   final _controller = AnimatedListController();
-  //great_list_view works be animating diff of 2 lists, hence A & B instance
+  //great_list_view works by animating diff of 2 lists, hence A & B instance
   late List<TodoItem> _listItems;
   late List<TodoItem> _listItemsA;
   late List<TodoItem> _listItemsB;

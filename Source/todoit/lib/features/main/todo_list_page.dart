@@ -112,6 +112,7 @@ class _TodoListPageState extends State<TodoListPage> {
 
   void _completeItem(int index) {
     _log.w("Updating item at index: $index");
+
     setState(() {
       // Reorder the list
       var listToDisplayNext =
@@ -125,18 +126,16 @@ class _TodoListPageState extends State<TodoListPage> {
         insertIndex = listToDisplayNext.indexOf(firstCompleted);
       }
       listToDisplayNext.insert(insertIndex, item);
-      swapList();
+
+      //swap the list around
+      _listItems = _listItems == _listItemsA ? _listItemsB : _listItemsA;
+
+      // copy live list into backup
       if (_listItems == _listItemsA) {
         _listItemsB = List.from(_listItems);
       } else {
         _listItemsA = List.from(_listItems);
       }
-    });
-  }
-
-  void swapList() {
-    setState(() {
-      _listItems = _listItems == _listItemsA ? _listItemsB : _listItemsA;
     });
   }
 }

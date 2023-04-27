@@ -4,13 +4,11 @@ import 'package:todoit/domain/todo.dart';
 class TodoCard extends StatefulWidget {
   const TodoCard({
     required this.model,
-    required this.animation,
     required this.onCompleted,
     super.key,
   });
 
   final TodoItem model;
-  final Animation<double> animation;
   final VoidCallback? onCompleted;
 
   @override

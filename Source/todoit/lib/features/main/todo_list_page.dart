@@ -59,7 +59,6 @@ class _TodoListPageState extends State<TodoListPage> {
                       a.isComplete == b.isComplete && a.name == b.name),
               itemBuilder: (context, item, data) => _buildItem(
                 item,
-                data.animation,
                 _listItems.indexOf(item),
                 _completeItem,
               ),
@@ -98,7 +97,6 @@ class _TodoListPageState extends State<TodoListPage> {
   //todo: could move items outside of build method if not using provider that relies on BuildContext
   Widget _buildItem(
     TodoItem item,
-    Animation<double> animation,
     int index,
     ValueSetter<int> onComplete,
   ) {
@@ -107,7 +105,6 @@ class _TodoListPageState extends State<TodoListPage> {
       height: 96,
       child: TodoCard(
         model: item,
-        animation: animation,
         onCompleted: () => onComplete(index),
       ),
     );

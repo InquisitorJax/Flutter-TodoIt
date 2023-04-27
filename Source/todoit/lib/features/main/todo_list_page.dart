@@ -19,9 +19,19 @@ class _TodoListPageState extends State<TodoListPage> {
   late final Logger _log;
   late final TodoService _todoService;
   final _controller = AnimatedListController();
+  final ScrollController _scrollController = ScrollController();
   //great_list_view works by animating diff of 2 lists, hence A & B instance
   late List<TodoItem> _listItems;
   late List<TodoItem> _listItemsBackup;
+
+  void _scrollToTop() {
+    // scroll to index not available - boooo!
+    _scrollController.animateTo(
+      _scrollController.position.minScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
 
   @override
   void initState() {
@@ -47,6 +57,7 @@ class _TodoListPageState extends State<TodoListPage> {
           Expanded(
             child: AutomaticAnimatedListView<TodoItem>(
               list: _listItems,
+              scrollController: _scrollController,
               animator: const DefaultAnimatedListAnimator(
                 dismissIncomingDuration: Duration(milliseconds: 150),
                 resizeDuration: Duration(milliseconds: 200),
@@ -124,6 +135,10 @@ class _TodoListPageState extends State<TodoListPage> {
 
       //swap the list around
       _listItems = _listItemsBackup;
+
+      if (!item.isComplete) {
+        _scrollToTop();
+      }
 
       // copy live list into backup
       _listItemsBackup = List.from(_listItems);

@@ -32,33 +32,31 @@ class _TodoCardState extends State<TodoCard> {
         decoration: widget.model.isComplete
             ? TextDecoration.lineThrough
             : TextDecoration.none);
-    return GestureDetector(
-        onTap: widget.onCompleted,
-        child: Card(
-          margin: const EdgeInsets.all(8),
-          color: theme.cardColor,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Checkbox(
-                  value: widget.model.isComplete,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0)),
-                  onChanged: (bool? value) {
-                    updateState(value);
-                    widget.onCompleted?.call();
-                  },
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  widget.model.name,
-                  style: style,
-                  semanticsLabel: "todo name: ${widget.model.name}",
-                ),
-              ],
+    return Card(
+      margin: const EdgeInsets.all(8),
+      color: theme.cardColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Checkbox(
+              value: widget.model.isComplete,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0)),
+              onChanged: (bool? value) {
+                updateState(value);
+                widget.onCompleted?.call();
+              },
             ),
-          ),
-        ));
+            const SizedBox(width: 8),
+            Text(
+              widget.model.name,
+              style: style,
+              semanticsLabel: "todo name: ${widget.model.name}",
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

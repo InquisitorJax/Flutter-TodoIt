@@ -108,14 +108,18 @@ class _TodoListPageState extends State<TodoListPage> {
       _listItems.insert(insertIndex, item);
 
       // Update the AnimatedList
-      _listKey.currentState?.removeItem(
-        index,
-        (context, animation) =>
-            _buildItem(item, animation, index, _completeItem),
-        duration: const Duration(milliseconds: 300),
-      );
-      _listKey.currentState?.insertItem(insertIndex,
-          duration: const Duration(milliseconds: 300));
+      // _listKey.currentState?.removeItem(
+      //   index,
+      //   (context, animation) =>
+      //       _buildItem(item, animation, index, _completeItem),
+      //   duration: const Duration(milliseconds: 300),
+      // );
+      // _listKey.currentState?.insertItem(insertIndex,
+      //     duration: const Duration(milliseconds: 300));
     });
+  }
+
+  void _addItem(String itemName) {
+    _log.w("Adding item with name ${itemName}");
   }
 }

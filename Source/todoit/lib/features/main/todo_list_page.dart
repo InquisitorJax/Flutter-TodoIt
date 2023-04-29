@@ -97,7 +97,7 @@ class _TodoListPageState extends State<TodoListPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: theme.colorScheme.onPrimary,
-        onPressed: () {},
+        onPressed: () => _addItem(),
         child: const Icon(Icons.add),
       ),
     );
@@ -133,15 +133,26 @@ class _TodoListPageState extends State<TodoListPage> {
       }
       _listItemsBackup.insert(insertIndex, item);
 
-      //swap the list around
+      _swapList(item.isComplete);
+    });
+  }
+
+    void _addItem() {
+      setState(() {
+        _listItemsBackup.insert(0, TodoItem("New Item"));
+        _swapList(true);
+      });
+    }
+
+    void _swapList(bool scrollList) {
+
       _listItems = _listItemsBackup;
 
-      if (!item.isComplete) {
+      if (!scrollList) {
         _scrollToTop();
       }
 
       // copy live list into backup
       _listItemsBackup = List.from(_listItems);
-    });
-  }
+    }
 }

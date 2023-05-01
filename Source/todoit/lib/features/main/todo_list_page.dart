@@ -63,7 +63,7 @@ class _TodoListPageState extends State<TodoListPage> {
                 resizeDuration: Duration(milliseconds: 200),
               ),
               comparator: AnimatedListDiffListComparator<TodoItem>(
-                  sameItem: (a, b) => a.id == b.id,
+                  sameItem: (a, b) => a.id2 == b.id2,
                   sameContent: (a, b) =>
                       a.isComplete == b.isComplete && a.name == b.name),
               itemBuilder: (context, item, data) => _buildItem(
@@ -137,22 +137,21 @@ class _TodoListPageState extends State<TodoListPage> {
     });
   }
 
-    void _addItem() {
-      setState(() {
-        _listItemsBackup.insert(0, TodoItem("New Item"));
-        _swapList(true);
-      });
+  void _addItem() {
+    setState(() {
+      _listItemsBackup.insert(0, TodoItem(1, "New Item"));
+      _swapList(true);
+    });
+  }
+
+  void _swapList(bool scrollList) {
+    _listItems = _listItemsBackup;
+
+    if (!scrollList) {
+      _scrollToTop();
     }
 
-    void _swapList(bool scrollList) {
-
-      _listItems = _listItemsBackup;
-
-      if (!scrollList) {
-        _scrollToTop();
-      }
-
-      // copy live list into backup
-      _listItemsBackup = List.from(_listItems);
-    }
+    // copy live list into backup
+    _listItemsBackup = List.from(_listItems);
+  }
 }

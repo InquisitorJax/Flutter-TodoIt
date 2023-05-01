@@ -10,19 +10,19 @@ class TodoItemRepository {
   List<TodoItem> getTodoItems() {
     log.w("Fetching Todo Items in Repo");
     return <TodoItem>[
-      TodoItem("Malcolm"),
-      TodoItem("Jack 1"),
-      TodoItem("Jack 2"),
-      TodoItem("Jack 3"),
-      TodoItem("Jack 4"),
-      TodoItem("Jack 5"),
-      TodoItem("Jack 6"),
-      TodoItem("Jack 7"),
-      TodoItem("Jack 8"),
-      TodoItem("Jack 9"),
-      TodoItem("Jack 10"),
-      TodoItem("Jack 11"),
-      TodoItem("Jack 12"),
+      TodoItem(1, "Malcolm"),
+      TodoItem(2, "Jack 1"),
+      TodoItem(3, "Jack 2"),
+      TodoItem(4, "Jack 3"),
+      TodoItem(5, "Jack 4"),
+      TodoItem(6, "Jack 5"),
+      TodoItem(7, "Jack 6"),
+      TodoItem(8, "Jack 7"),
+      TodoItem(9, "Jack 8"),
+      TodoItem(10, "Jack 9"),
+      TodoItem(11, "Jack 10"),
+      TodoItem(12, "Jack 11"),
+      TodoItem(13, "Jack 12"),
     ];
   }
 }

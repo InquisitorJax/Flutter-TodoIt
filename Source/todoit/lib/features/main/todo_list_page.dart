@@ -19,7 +19,8 @@ class _TodoListPageState extends State<TodoListPage> {
   late final Logger _log;
   late final TodoService _todoService;
   final _controller = AnimatedListController();
-  final ScrollController _scrollController = ScrollController();
+  final _scrollController = ScrollController();
+  final _textEditController = TextEditingController();
   //great_list_view works by animating diff of 2 lists, hence A & B instance
   late List<TodoItem> _listItems;
   late List<TodoItem> _listItemsBackup;
@@ -45,7 +46,6 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    String addTodoText;
 
     return Scaffold(
       appBar: AppBar(
@@ -78,16 +78,23 @@ class _TodoListPageState extends State<TodoListPage> {
               detectMoves: true,
             ),
           ),
-          const Align(
+          Align(
             // should be horizontal stack
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 80, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 80, 0),
               child: SizedBox(
                 height: 80,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextField(),
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: _textEditController,
+                    onSubmitted: (text) => _addItem(text),
+                    textInputAction: TextInputAction.done,
+                    decoration: const InputDecoration(
+                      hintText: 'add a new todo item',
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -97,7 +104,7 @@ class _TodoListPageState extends State<TodoListPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: theme.colorScheme.onPrimary,
-        onPressed: () => _addItem(),
+        onPressed: () => _addItem(_textEditController.text),
         child: const Icon(Icons.add),
       ),
     );
@@ -137,11 +144,13 @@ class _TodoListPageState extends State<TodoListPage> {
     });
   }
 
-  void _addItem() {
+  void _addItem(String todoText) {
     setState(() {
-      _listItemsBackup.insert(0, TodoItem(1, "New Item"));
+      int id = _listItems.length + 1;
+      _listItemsBackup.insert(0, TodoItem(id, todoText));
       _swapList(true);
     });
+    _textEditController.clear();
   }
 
   void _swapList(bool scrollList) {

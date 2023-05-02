@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = TodoListPage();
+        page = const TodoListPage();
         break;
       case 1:
         page = const SettingsPage();

@@ -107,19 +107,20 @@ class _TodoListPageState extends State<TodoListPage> {
   Widget _buildItem(
     TodoItem item,
     int index,
-    ValueSetter<int> onComplete,
+    ValueSetter<TodoItem> onComplete,
   ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       height: 96,
       child: TodoCard(
         model: item,
-        onCompleted: () => onComplete(index),
+        onCompleted: () => onComplete(item),
       ),
     );
   }
 
-  void _completeItem(int index) {
+  void _completeItem(TodoItem item) {
+    int index = _listItems.indexOf(item);
     _log.w("Updating item at index: $index");
 
     setState(() {
@@ -132,7 +133,6 @@ class _TodoListPageState extends State<TodoListPage> {
         insertIndex = _listItemsBackup.indexOf(firstCompleted);
       }
       _listItemsBackup.insert(insertIndex, item);
-
       _swapList(item.isComplete);
     });
   }

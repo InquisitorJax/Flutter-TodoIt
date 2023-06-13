@@ -6,6 +6,7 @@ https://www.youtube.com/watch?v=jtFaMv2vGF0
 Current:
 todo app: https://www.youtube.com/watch?v=K4P5DZ9TRns
 todo app2: https://www.youtube.com/watch?v=mMgr47QBZWA
+todo app3: https://www.youtube.com/watch?v=dCVS3ulmosE (nice MVVM architecture)
 Animated list
 https://www.youtube.com/watch?v=E3SQOqUq8Mg&t=77s
 more: https://www.kindacode.com/article/flutter-animatedlist-tutorial-and-examples/
@@ -14,3 +15,6 @@ https://www.youtube.com/watch?v=eEt6JrMuPZw
 code: https://github.com/svprdga/Flutter-Movies-App
 
 finished registering dependencies using MultiProvider (21min)
+
+dependencies:
+flutter_slidable: https://pub.dev/packages/flutter_slidable

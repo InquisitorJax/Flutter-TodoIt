@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:great_list_view/great_list_view.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:todoit/domain/todo.dart';
 import 'package:todoit/extensions/list_extensions.dart';
+import 'package:todoit/features/main/add_todo_bottom_sheet_view.dart';
 import 'package:todoit/widgets/todo_card.dart';
 
 import '../../services/todo_service.dart';
@@ -66,11 +68,8 @@ class _TodoListPageState extends State<TodoListPage> {
                   sameItem: (a, b) => a.id2 == b.id2,
                   sameContent: (a, b) =>
                       a.isComplete == b.isComplete && a.name == b.name),
-              itemBuilder: (context, item, data) => _buildItem(
-                item,
-                _listItems.indexOf(item),
-                _completeItem,
-              ),
+              itemBuilder: (context, item, data) => _buildTodoCard(
+                  item, _listItems.indexOf(item), _completeItem, _deleteItem),
               listController: _controller,
               addLongPressReorderable: false,
               // maybe try enable reorder limited to not completed? https://github.com/DavideBelsole/great_list_view/issues/16
@@ -104,17 +103,23 @@ class _TodoListPageState extends State<TodoListPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: theme.colorScheme.onPrimary,
-        onPressed: () => _addItem(_textEditController.text),
+        onPressed: () {
+          HapticFeedback.heavyImpact();
+          _buildTodoBottomSheet(AddTodoItemBottomSheetView(
+              addTodoItem: (addText) => _addItem(addText)), context);
+          //_addItem(_textEditController.text);
+        },
         child: const Icon(Icons.add),
       ),
     );
   }
 
   //todo: could move items outside of build method if not using provider that relies on BuildContext
-  Widget _buildItem(
+  Widget _buildTodoCard(
     TodoItem item,
     int index,
     ValueSetter<TodoItem> onComplete,
+    ValueSetter<TodoItem> onDelete,
   ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
@@ -122,8 +127,19 @@ class _TodoListPageState extends State<TodoListPage> {
       child: TodoCard(
         model: item,
         onCompleted: () => onComplete(item),
+        onDeleted: () => onDelete(item),
       ),
     );
+  }
+
+  void _buildTodoBottomSheet(Widget bottomSheetView, BuildContext context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        context: context,
+        builder: ((context) {
+          return bottomSheetView;
+        }));
   }
 
   void _completeItem(TodoItem item) {
@@ -151,6 +167,10 @@ class _TodoListPageState extends State<TodoListPage> {
       _swapList(true);
     });
     _textEditController.clear();
+  }
+
+  void _deleteItem(TodoItem item) {
+    //complete
   }
 
   void _swapList(bool scrollList) {

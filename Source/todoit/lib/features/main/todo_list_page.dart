@@ -149,7 +149,10 @@ class _TodoListPageState extends State<TodoListPage> {
   }
 
   void _deleteItem(TodoItem item) {
-    //complete
+    setState(() {
+      _listItemsBackup.remove(item);
+      _swapList(false);
+    });
   }
 
   void _swapList(bool scrollList) {

@@ -19,31 +19,32 @@ class AddTodoItemBottomSheetView extends StatelessWidget {
       child: SizedBox(
         height: 80,
         child: Center(
-            child: SizedBox(
-          height: 40,
-          width: 250,
-          child: TextField(
-            onSubmitted: (value) {
-              if (entryController.text.isNotEmpty) {
-                addTodoItem(entryController.text);
-                entryController.clear();
-              }
-              Navigator.of(context).pop();
-            },
-            decoration: InputDecoration(
-                contentPadding: const EdgeInsets.only(bottom: 5),
-                filled: true,
-                fillColor: theme.colorScheme.surfaceVariant,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide:
-                        const BorderSide(width: 0, style: BorderStyle.none))),
-            textAlign: TextAlign.center,
-            textAlignVertical: TextAlignVertical.center,
-            cursorColor: theme.colorScheme.surfaceTint,
-            autofocus: true,
-            autocorrect: false,
-            controller: entryController,
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Expanded(
+            child: TextField(
+              onSubmitted: (value) {
+                if (entryController.text.isNotEmpty) {
+                  addTodoItem(entryController.text);
+                  entryController.clear();
+                }
+                Navigator.of(context).pop();
+              },
+              decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(bottom: 5),
+                  filled: true,
+                  fillColor: theme.colorScheme.surfaceVariant,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          const BorderSide(width: 0, style: BorderStyle.none))),
+              textAlign: TextAlign.center,
+              textAlignVertical: TextAlignVertical.center,
+              cursorColor: theme.colorScheme.surfaceTint,
+              autofocus: true,
+              autocorrect: false,
+              controller: entryController,
+            ),
           ),
         )),
       ),

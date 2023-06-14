@@ -66,11 +66,17 @@ class _TodoCardState extends State<TodoCard> {
                   widget.onCompleted?.call();
                 },
               ),
-              const SizedBox(width: 8),
-              Text(
-                widget.model.name,
-                style: style,
-                semanticsLabel: "todo name: ${widget.model.name}",
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    widget.model.name,
+                    style: style,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    semanticsLabel: "todo name: ${widget.model.name}",
+                  ),
+                ),
               ),
             ],
           ),

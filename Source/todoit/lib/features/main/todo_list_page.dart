@@ -77,27 +77,6 @@ class _TodoListPageState extends State<TodoListPage> {
               detectMoves: true,
             ),
           ),
-          Align(
-            // should be horizontal stack
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 80, 0),
-              child: SizedBox(
-                height: 80,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _textEditController,
-                    onSubmitted: (text) => _addItem(text),
-                    textInputAction: TextInputAction.done,
-                    decoration: const InputDecoration(
-                      hintText: 'add a new todo item',
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -105,9 +84,10 @@ class _TodoListPageState extends State<TodoListPage> {
         foregroundColor: theme.colorScheme.onPrimary,
         onPressed: () {
           HapticFeedback.heavyImpact();
-          _buildTodoBottomSheet(AddTodoItemBottomSheetView(
-              addTodoItem: (addText) => _addItem(addText)), context);
-          //_addItem(_textEditController.text);
+          _buildTodoBottomSheet(
+              AddTodoItemBottomSheetView(
+                  addTodoItem: (addText) => _addItem(addText)),
+              context);
         },
         child: const Icon(Icons.add),
       ),
@@ -123,7 +103,6 @@ class _TodoListPageState extends State<TodoListPage> {
   ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
-      height: 96,
       child: TodoCard(
         model: item,
         onCompleted: () => onComplete(item),
@@ -134,7 +113,7 @@ class _TodoListPageState extends State<TodoListPage> {
 
   void _buildTodoBottomSheet(Widget bottomSheetView, BuildContext context) {
     showModalBottomSheet(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         context: context,
         builder: ((context) {

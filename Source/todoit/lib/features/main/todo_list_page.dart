@@ -139,6 +139,7 @@ class _TodoListPageState extends State<TodoListPage> {
     });
   }
 
+//todo: _listItemsBackup should be in viewmodel which pushes state here
   void _addItem(String todoText) {
     setState(() {
       int id = _listItems.length + 1;

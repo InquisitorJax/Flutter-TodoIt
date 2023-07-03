@@ -8,7 +8,7 @@ import '../../services/todo_service.dart';
 // see: https://github.com/martusheff/flutter-to-do-list
 
 class TodoListViewModel extends ChangeNotifier {
-  // how to get dependencies in here? context?
+  // how to get dependencies in here? context from widget when it constructs VM?
   //final Logger _log = Provider.of<Logger>(context, listen: false);
   //final TodoService _todoService = Provider.of<TodoService>(context, listen: false);
 

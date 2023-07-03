@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
+    var theme = Theme.of(context);
 
     Widget page;
     switch (selectedIndex) {
@@ -80,6 +81,11 @@ class _HomePageState extends State<HomePage> {
                 Expanded(child: mainArea),
                 SafeArea(
                   child: BottomNavigationBar(
+                    selectedIconTheme: IconThemeData(
+                        color: theme.colorScheme.primary, size: 32),
+                    selectedItemColor: theme.colorScheme.primary,
+                    selectedLabelStyle:
+                        const TextStyle(fontWeight: FontWeight.bold),
                     items: const [
                       BottomNavigationBarItem(
                         icon: Icon(Icons.home),

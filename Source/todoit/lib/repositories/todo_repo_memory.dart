@@ -1,12 +1,14 @@
 import 'package:logger/logger.dart';
+import 'package:todoit/repositories/todo_repository.dart';
 
 import '../domain/todo.dart';
 
-class TodoItemRepository {
+class TodoItemMemoryRepository implements TodoItemRepository {
   final Logger log;
 
-  TodoItemRepository({required this.log});
+  TodoItemMemoryRepository({required this.log});
 
+  @override
   List<TodoItem> getTodoItems() {
     log.w("Fetching Todo Items in Repo");
     return <TodoItem>[

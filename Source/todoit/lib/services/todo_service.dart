@@ -1,5 +1,5 @@
 import 'package:todoit/domain/todo.dart';
-import 'package:todoit/repositories/todo_cloud_repo.dart';
+import '../repositories/todo_repository.dart';
 
 // todo: should be class TodoService with ChangeNotifier?
 // so any todo list crud can be watched?

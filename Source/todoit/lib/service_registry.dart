@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:todoit/repositories/todo_cloud_repo.dart';
+import 'package:todoit/repositories/todo_repo_cloud.dart';
 import 'package:todoit/services/todo_service.dart';
 
 class ServiceRegistry {
@@ -15,7 +15,7 @@ class ServiceRegistry {
         printer: PrettyPrinter(),
         level: kDebugMode ? Level.verbose : Level.nothing);
 
-    final todoRepo = TodoItemRepository(log: log);
+    final todoRepo = TodoItemCloudRepository(log: log);
     final todoService = TodoService(repo: todoRepo);
 
     return ServiceRegistry(providers: [

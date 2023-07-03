@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 class TodoItem {
   String id = const Uuid().toString();
 
-  int id2;
+  final int id2;
 
   bool isComplete = false;
   late String name;

@@ -9,9 +9,11 @@ class TodoItemMemoryRepository implements TodoItemRepository {
   TodoItemMemoryRepository({required this.log});
 
   @override
-  List<TodoItem> getTodoItems() {
+  Future<GetTodoItemsResponse> getTodoItems() async {
     log.w("Fetching Todo Items in Repo");
-    return <TodoItem>[
+    // pretend like it's going to take some time
+    await Future.delayed(const Duration(milliseconds: 1000));
+    List<TodoItem> items = [
       TodoItem(1, "Malcolm"),
       TodoItem(2, "Jack 1"),
       TodoItem(3, "Jack 2"),
@@ -26,5 +28,8 @@ class TodoItemMemoryRepository implements TodoItemRepository {
       TodoItem(12, "Jack 11"),
       TodoItem(13, "Jack 12"),
     ];
+    GetTodoItemsResponse response = GetTodoItemsResponse();
+    response.todoItems = items;
+    return response;
   }
 }

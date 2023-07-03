@@ -20,6 +20,7 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   late final Logger _log;
   late final TodoService _todoService;
+  bool _loading = false;
   final _controller = AnimatedListController();
   final _scrollController = ScrollController();
   final _textEditController = TextEditingController();
@@ -41,14 +42,24 @@ class _TodoListPageState extends State<TodoListPage> {
     super.initState();
     _todoService = Provider.of<TodoService>(context, listen: false);
     _log = Provider.of<Logger>(context, listen: false);
-    _listItems = _todoService.getTodoItems();
-    _listItemsBackup = List.from(_listItems);
+    _loading = true;
+    _todoService.getTodoItems().then((response) {
+      setState(() {
+        _loading = false;
+        _listItems = response.todoItems;
+        _listItemsBackup = List.from(_listItems);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
+    if (_loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("TodoIt App"),

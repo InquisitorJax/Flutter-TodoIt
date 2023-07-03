@@ -9,9 +9,9 @@ class TodoItemCloudRepository implements TodoItemRepository {
   TodoItemCloudRepository({required this.log});
 
   @override
-  List<TodoItem> getTodoItems() {
+  Future<GetTodoItemsResponse> getTodoItems() async {
     log.w("Fetching Todo Items in Repo");
-    return <TodoItem>[
+    List<TodoItem> items = [
       TodoItem(1, "Malcolm"),
       TodoItem(2, "Jack 1"),
       TodoItem(3, "Jack 2"),
@@ -26,5 +26,8 @@ class TodoItemCloudRepository implements TodoItemRepository {
       TodoItem(12, "Jack 11"),
       TodoItem(13, "Jack 12"),
     ];
+    GetTodoItemsResponse response = GetTodoItemsResponse();
+    response.todoItems = items;
+    return response;
   }
 }
